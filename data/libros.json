@@ -6,7 +6,7 @@
         "anio": 1967,
         "genero": "Realismo mágico",
         "precio": 12990,
-        "stock": 12,
+        "stock": 3,
         "portada": "../assets/portadas/cienAñosSoledad.jpg"
     },
     {
@@ -16,7 +16,7 @@
         "anio": 1954,
         "genero": "Fantasía",
         "precio": 19990,
-        "stock": 8,
+        "stock": 2,
         "portada": "../assets/portadas/señorAnillos.jpg"
     },
     {
@@ -158,5 +158,45 @@
         "precio": 9990,
         "stock": 16,
         "portada": "../assets/portadas/orgulloPrejuicio.jpg"
+    },
+    {
+        "id": "17",
+        "titulo": "Don Quijote de la Mancha",
+        "autor": "Miguel de Cervantes",
+        "anio": 1605,
+        "genero": "Clásico",
+        "precio": 14990,
+        "stock": 8,
+        "portada": "../assets/portadas/donQuijote.jpg"
+    },
+    {
+        "id": "18",
+        "titulo": "Los juegos del hambre",
+        "autor": "Suzanne Collins",
+        "anio": 2008,
+        "genero": "Ciencia ficción",
+        "precio": 13990,
+        "stock": 12,
+        "portada": "../assets/portadas/juegosHambre.jpg"
+    },
+    {
+        "id": "19",
+        "titulo": "La ladrona de libros",
+        "autor": "Markus Zusak",
+        "anio": 2005,
+        "genero": "Histórica",
+        "precio": 12990,
+        "stock": 10,
+        "portada": "../assets/portadas/ladronaLibros.jpg"
+    },
+    {
+        "id": "20",
+        "titulo": "Moby-Dick",
+        "autor": "Herman Melville",
+        "anio": 1851,
+        "genero": "Aventura",
+        "precio": 11990,
+        "stock": 2,
+        "portada": "../assets/portadas/mobyDick.jpg"
     }
 ]
