@@ -61,7 +61,19 @@ function lAplicarFiltros() {
     return okQ && okG;
   });
 
-  if (s === "precio-asc") lFiltrados.sort((a, b) => a.precio - b.precio);
+  // nuevos ordenes
+  switch (s) {
+    case "precio-asc":
+      lFiltrados.sort((a, b) => a.precio - b.precio);
+      break;
+    case "precio-desc":
+      lFiltrados.sort((a, b) => b.precio - a.precio);
+      break;
+    case "titulo-az":
+      lFiltrados.sort((a, b) => a.titulo.localeCompare(b.titulo, "es", { sensitivity: "base" }));
+      break;
+    // "todos" mantiene orden original
+  }
 
   lRenderGrid();
 }
@@ -72,6 +84,10 @@ function lLimpiarFiltros() {
   $("#sort").value = "todos";
   lAplicarFiltros();
 }
+
+// Exponer reset para el logo del navbar
+function resetearFiltros() { lLimpiarFiltros(); }
+window.resetearFiltros = resetearFiltros;
 
 // Bootstrap
 function lBindUI() {
