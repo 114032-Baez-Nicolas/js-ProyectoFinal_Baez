@@ -17,13 +17,6 @@ body {
   color: var(--text);
 }
 
-.hero {
-  background: linear-gradient(135deg, var(--primary), var(--primary-2) 55%);
-}
-.hero .container {
-  max-width: 900px;
-}
-
 html,
 body,
 .card,
@@ -42,6 +35,13 @@ body,
 .navbar .nav-link,
 .navbar .navbar-brand {
   color: var(--nav-text) !important;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2) 55%);
+}
+.hero .container {
+  max-width: 900px;
 }
 
 .card {
