@@ -1,0 +1,23 @@
+body {
+    background: var(--bg);
+    color: var(--text);
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--primary), var(--primary-2) 55%);
+
+    .container {
+        max-width: 900px;
+    }
+}
+
+html,
+body,
+.card,
+.navbar {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.text-muted {
+    color: var(--muted) !important;
+}
