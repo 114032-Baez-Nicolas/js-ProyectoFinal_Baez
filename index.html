@@ -24,7 +24,7 @@
     <!-- NAV -->
     <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">📚 Duarte Quirós</a>
+            <a class="navbar-brand fw-bold" href="#" onclick="resetearFiltros()">📚 Duarte Quirós</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +50,7 @@
             <div class="row g-2 align-items-end">
                 <div class="col-12 col-md-6">
                     <label for="q" class="form-label">Buscar</label>
-                    <input id="q" type="search" class="form-control" placeholder="Título o autor…">
+                    <input id="q" type="search" class="form-control" placeholder="Título o autor…" autocomplete="off">
                 </div>
                 <div class="col-6 col-md-3">
                     <label for="genre" class="form-label">Género</label>
@@ -63,6 +63,8 @@
                     <select id="sort" class="form-select">
                         <option value="todos" selected>Orden original</option>
                         <option value="precio-asc">Precio: menor a mayor</option>
+                        <option value="precio-desc">Precio: mayor a menor</option>
+                        <option value="titulo-az">Título: A → Z</option>
                     </select>
                 </div>
             </div>
