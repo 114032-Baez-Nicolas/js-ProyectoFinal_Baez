@@ -45,7 +45,7 @@
     </header>
 
     <!-- APP -->
-    <main class="container py-4">
+    <main class="container py-4" id="app">
         <section class="mb-3">
             <div class="row g-2 align-items-end">
                 <div class="col-12 col-md-6">
@@ -68,15 +68,23 @@
                     </select>
                 </div>
             </div>
-            <div class="d-flex gap-2 mt-2">
+            <div class="d-flex gap-2 mt-2 align-items-center">
                 <button id="btnClear" class="btn btn-outline-secondary btn-sm">Limpiar filtros</button>
-                <span id="resultCount" class="ms-auto small text-muted">Cargando…</span>
+                <span id="resultCount" class="ms-auto small text-muted" aria-live="polite">Cargando…</span>
             </div>
         </section>
 
-        <section aria-live="polite">
-            <div id="grid" class="row g-4"></div>
-            <p id="empty" class="text-center mt-4 d-none">No hay resultados.</p>
+        <section aria-live="polite" aria-busy="true">
+            <div id="grid" class="row g-4" aria-busy="true"></div>
+
+            <!-- Empty state mejorado -->
+            <div id="empty" class="text-center mt-5 d-none">
+                <div class="py-5">
+                    <h3 class="text-muted mb-2">😔 No encontramos resultados</h3>
+                    <p class="text-muted">Probá con otras palabras o cambiá los filtros.</p>
+                    <button class="btn btn-primary" onclick="resetearFiltros()">Ver todos los libros</button>
+                </div>
+            </div>
         </section>
     </main>
 

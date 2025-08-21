@@ -1,0 +1,25 @@
+.card {
+    .card-body {
+
+        .h6,
+        .card-title {
+            color: var(--text);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 2.6rem;
+        }
+
+        .text-muted,
+        small.text-muted {
+            color: var(--muted) !important;
+            opacity: 1;
+        }
+
+        strong {
+            color: var(--text);
+        }
+    }
+
+    border-color: var(--border);
+}
