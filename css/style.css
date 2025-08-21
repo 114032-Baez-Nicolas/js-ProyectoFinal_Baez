@@ -28,6 +28,7 @@ body,
 
 .text-muted {
   color: var(--muted) !important;
+  opacity: 1;
 }
 
 body[data-theme=dark] {
@@ -65,9 +66,6 @@ body[data-theme=dark] {
   border: 1px solid var(--border);
 }
 
-.card {
-  border-color: var(--border);
-}
 .card .card-body .h6,
 .card .card-body .card-title {
   color: var(--text);
@@ -76,13 +74,13 @@ body[data-theme=dark] {
   overflow: hidden;
   min-height: 2.6rem;
 }
-.card .card-body .text-muted,
-.card .card-body small.text-muted {
-  color: var(--muted) !important;
-  opacity: 1;
-}
 .card .card-body strong {
   color: var(--text);
+}
+
+.card .text-muted,
+.card small.text-muted {
+  color: var(--muted) !important;
 }
 
 .img-crop {
