@@ -1,29 +1,31 @@
-// Estado mínimo
-let lLibros = [];
-let lFiltrados = [];
+let libros = [];
+let librosFiltrados = [];
 
-// Utils
+// utils
 const $ = (s) => document.querySelector(s);
-function lFormatearPrecio(n) { return n.toLocaleString("es-AR"); }
-function lDebounce(fn, t = 300) { let id; return (...a) => { clearTimeout(id); id = setTimeout(() => fn(...a), t); }; }
+function debounce(fn, t = 300) {
+  let id;
+  return (...a) => { clearTimeout(id); id = setTimeout(() => fn(...a), t); };
+}
+function formatearPrecio(n) { return n.toLocaleString("es-AR"); }
 
-// Data
-async function lCargarLibros() {
+// data
+async function cargarLibros() {
   const r = await fetch("./data/libros.json");
   if (!r.ok) throw new Error("No se pudo cargar el catálogo");
   const data = await r.json();
   // normalizo ids a string
-  lLibros = data.map(b => ({ ...b, id: String(b.id) }));
-  lFiltrados = [...lLibros];
+  libros = data.map(b => ({ ...b, id: String(b.id) }));
+  librosFiltrados = [...libros];
 }
 
-// UI
-function lRenderGeneros() {
-  const lSet = [...new Set(lLibros.map(b => b.genero))].sort((a, b) => a.localeCompare(b));
-  $("#genre").innerHTML = `<option value="">Todos</option>` + lSet.map(g => `<option>${g}</option>`).join("");
+// ui
+function renderGeneros() {
+  const set = [...new Set(libros.map(b => b.genero))].sort((a, b) => a.localeCompare(b));
+  $("#genre").innerHTML = `<option value="">Todos</option>` + set.map(g => `<option>${g}</option>`).join("");
 }
 
-function lCardTpl(b) {
+function cardTpl(b) {
   return `
   <div class="col-12 col-sm-6 col-lg-3">
     <div class="card h-100 shadow-sm">
@@ -36,7 +38,7 @@ function lCardTpl(b) {
           ${b.autor} • ${b.genero} • ${b.anio}
         </p>
         <div class="d-flex justify-content-between align-items-center">
-          <strong>$${lFormatearPrecio(b.precio)}</strong>
+          <strong>$${formatearPrecio(b.precio)}</strong>
           <small class="text-muted">Stock: ${b.stock}</small>
         </div>
       </div>
@@ -44,66 +46,65 @@ function lCardTpl(b) {
   </div>`;
 }
 
-function lRenderGrid() {
-  $("#grid").innerHTML = lFiltrados.map(lCardTpl).join("");
-  $("#resultCount").textContent = `Mostrando ${lFiltrados.length} resultados`;
-  $("#empty").classList.toggle("d-none", lFiltrados.length !== 0);
+function renderLibros() {
+  $("#grid").innerHTML = librosFiltrados.map(cardTpl).join("");
+  $("#resultCount").textContent = `Mostrando ${librosFiltrados.length} resultados`;
+  $("#empty").classList.toggle("d-none", librosFiltrados.length !== 0);
 }
 
-function lAplicarFiltros() {
+function aplicarFiltros() {
   const q = $("#q").value.trim().toLowerCase();
   const g = $("#genre").value;
   const s = $("#sort").value;
 
-  lFiltrados = lLibros.filter(b => {
+  librosFiltrados = libros.filter(b => {
     const okQ = !q || b.titulo.toLowerCase().includes(q) || b.autor.toLowerCase().includes(q);
     const okG = !g || b.genero === g;
     return okQ && okG;
   });
 
-  // nuevos ordenes
   switch (s) {
     case "precio-asc":
-      lFiltrados.sort((a, b) => a.precio - b.precio);
+      librosFiltrados.sort((a, b) => a.precio - b.precio);
       break;
     case "precio-desc":
-      lFiltrados.sort((a, b) => b.precio - a.precio);
+      librosFiltrados.sort((a, b) => b.precio - a.precio);
       break;
     case "titulo-az":
-      lFiltrados.sort((a, b) => a.titulo.localeCompare(b.titulo, "es", { sensitivity: "base" }));
+      librosFiltrados.sort((a, b) => a.titulo.localeCompare(b.titulo, "es", { sensitivity: "base" }));
       break;
     // "todos" mantiene orden original
   }
 
-  lRenderGrid();
+  renderLibros();
 }
 
-function lLimpiarFiltros() {
+function limpiarFiltros() {
   $("#q").value = "";
   $("#genre").value = "";
   $("#sort").value = "todos";
-  lAplicarFiltros();
+  aplicarFiltros();
 }
 
-// Exponer reset para el logo del navbar
-function resetearFiltros() { lLimpiarFiltros(); }
+// exponer reset para el logo del navbar
+function resetearFiltros() { limpiarFiltros(); }
 window.resetearFiltros = resetearFiltros;
 
-// Bootstrap
-function lBindUI() {
-  $("#q").addEventListener("input", lDebounce(lAplicarFiltros, 250));
-  $("#genre").addEventListener("change", lAplicarFiltros);
-  $("#sort").addEventListener("change", lAplicarFiltros);
-  $("#btnClear").addEventListener("click", lLimpiarFiltros);
+// eventos
+function setearEventos() {
+  $("#q").addEventListener("input", debounce(aplicarFiltros, 250));
+  $("#genre").addEventListener("change", aplicarFiltros);
+  $("#sort").addEventListener("change", aplicarFiltros);
+  $("#btnClear").addEventListener("click", limpiarFiltros);
 }
 
-// Init
-(async function lInit() {
+// init
+(async function () {
   try {
-    await lCargarLibros();
-    lRenderGeneros();
-    lAplicarFiltros();
-    lBindUI();
+    await cargarLibros();
+    renderGeneros();
+    aplicarFiltros();
+    setearEventos();
   } catch (e) {
     console.error(e);
     $("#grid").innerHTML = `<div class="alert alert-danger">Error cargando libros.</div>`;
