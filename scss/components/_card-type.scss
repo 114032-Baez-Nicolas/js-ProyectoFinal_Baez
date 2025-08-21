@@ -10,16 +10,13 @@
             min-height: 2.6rem;
         }
 
-        .text-muted,
-        small.text-muted {
-            color: var(--muted) !important;
-            opacity: 1;
-        }
-
         strong {
             color: var(--text);
         }
     }
+}
 
-    border-color: var(--border);
+.card .text-muted,
+.card small.text-muted {
+    color: var(--muted) !important;
 }
