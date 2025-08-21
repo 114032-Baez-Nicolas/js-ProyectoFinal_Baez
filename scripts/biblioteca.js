@@ -1,5 +1,9 @@
 let libros = [];
 let librosFiltrados = [];
+let carrito = [];
+let stockOriginal = {};
+const LIMITE_ENVIO_GRATIS = 50000;
+const COSTO_ENVIO = 2500;
 
 // utils
 const $ = (s) => document.querySelector(s);
@@ -9,6 +13,48 @@ function debounce(fn, t = 300) {
 }
 function formatearPrecio(n) { return n.toLocaleString("es-AR"); }
 
+// toast (libreria de notificaciones)
+function mostrarToast(mensaje, tipo = "info") {
+  if (typeof Toastify === "function") {
+    const colores = {
+      success: "linear-gradient(to right, #00b09b, #96c93d)",
+      error: "#dc3545",
+      info: "#6c757d"
+    };
+    Toastify({
+      text: mensaje,
+      duration: tipo === "success" ? 1800 : 2000,
+      gravity: "top",
+      position: "left",
+      style: { background: colores[tipo] || colores.info }
+    }).showToast();
+  } else {
+    console.log(`[toast ${tipo}]`, mensaje);
+  }
+}
+
+// tema
+function cambiarTema() {
+  const body = document.body;
+  const temaActual = body.getAttribute("data-theme") || "light";
+  const nuevoTema = temaActual === "light" ? "dark" : "light";
+  body.setAttribute("data-theme", nuevoTema);
+  try { localStorage.setItem("tema_guardado", nuevoTema); } catch { }
+  const btn = document.getElementById("btnToggleTheme");
+  if (btn) btn.textContent = nuevoTema === "dark" ? "☀️" : "🌙";
+}
+function temaInicial() {
+  let tema = "light";
+  try {
+    const guardado = localStorage.getItem("tema_guardado");
+    const prefiereOscuro = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    tema = guardado || (prefiereOscuro ? "dark" : "light");
+  } catch { }
+  document.body.setAttribute("data-theme", tema);
+  const btn = document.getElementById("btnToggleTheme");
+  if (btn) btn.textContent = tema === "dark" ? "☀️" : "🌙";
+}
+
 // data
 async function cargarLibros() {
   const r = await fetch("./data/libros.json");
@@ -16,13 +62,36 @@ async function cargarLibros() {
   const data = await r.json();
   // normalizo ids a string
   libros = data.map(b => ({ ...b, id: String(b.id) }));
+  cargarStockGuardado();
   librosFiltrados = [...libros];
+  return libros;
+}
+
+function cargarStockGuardado() {
+  try {
+    const guardado = localStorage.getItem("stock_biblioteca");
+    if (!guardado) return;
+    stockOriginal = JSON.parse(guardado) || {};
+    libros.forEach(l => {
+      if (stockOriginal[l.id] !== undefined) l.stock = stockOriginal[l.id];
+    });
+  } catch { }
+}
+
+function guardarStock() {
+  try {
+    const snapshot = {};
+    libros.forEach(l => { snapshot[l.id] = l.stock; });
+    stockOriginal = snapshot;
+    localStorage.setItem("stock_biblioteca", JSON.stringify(snapshot));
+  } catch { }
 }
 
 // ui
-function renderGeneros() {
-  const set = [...new Set(libros.map(b => b.genero))].sort((a, b) => a.localeCompare(b));
-  $("#genre").innerHTML = `<option value="">Todos</option>` + set.map(g => `<option>${g}</option>`).join("");
+function llenarSelectGenero() {
+  const generos = [...new Set(libros.map(b => b.genero))].sort((a, b) => a.localeCompare(b));
+  $("#genre").innerHTML =
+    `<option value="">Todos</option>` + generos.map(g => `<option>${g}</option>`).join("");
 }
 
 function cardTpl(b) {
@@ -84,6 +153,7 @@ function limpiarFiltros() {
   $("#genre").value = "";
   $("#sort").value = "todos";
   aplicarFiltros();
+  mostrarToast("filtros limpios", "info");
 }
 
 // exponer reset para el logo del navbar
@@ -92,17 +162,19 @@ window.resetearFiltros = resetearFiltros;
 
 // eventos
 function setearEventos() {
-  $("#q").addEventListener("input", debounce(aplicarFiltros, 250));
+  $("#q").addEventListener("input", debounce(aplicarFiltros, 400));
   $("#genre").addEventListener("change", aplicarFiltros);
   $("#sort").addEventListener("change", aplicarFiltros);
   $("#btnClear").addEventListener("click", limpiarFiltros);
+  document.getElementById("btnToggleTheme")?.addEventListener("click", cambiarTema);
 }
 
 // init
 (async function () {
   try {
+    temaInicial();
     await cargarLibros();
-    renderGeneros();
+    llenarSelectGenero();
     aplicarFiltros();
     setearEventos();
   } catch (e) {
