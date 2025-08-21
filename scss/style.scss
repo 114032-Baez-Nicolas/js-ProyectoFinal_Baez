@@ -1,14 +1,12 @@
 // Utils
 @import "utils/variables";
 @import "utils/globals";
-@import "utils/theme";
 
-// components
-@import "components/navbar";
-@import "components/hero";
+// Layouts
+@import "layouts/navbar";
+@import "layouts/hero";
+
+// Components
 @import "components/card";
-@import "components/card-type";
-@import "components/helpers";
-@import "components/forms";
-@import "components/buttons";
 @import "components/cart";
+@import "components/forms";
