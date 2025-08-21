@@ -1,0 +1,14 @@
+.btn-outline-secondary {
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--thumb);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+body[data-theme="dark"] .navbar .navbar-toggler-icon {
+    filter: invert(1) brightness(1.2);
+}
