@@ -18,5 +18,16 @@
 .form-control:focus,
 .form-select:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 .2rem rgba(79, 70, 229, .25);
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, .25);
+}
+
+.btn-outline-secondary {
+    color: var(--text);
+    border-color: var(--border);
+}
+
+.btn-outline-secondary:hover {
+    background: var(--thumb);
+    color: var(--text);
+    border-color: var(--border);
 }
