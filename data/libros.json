@@ -7,7 +7,7 @@
         "genero": "Realismo mágico",
         "precio": 12990,
         "stock": 3,
-        "portada": "../assets/portadas/cienAñosSoledad.jpg"
+        "portada": "./assets/portadas/cienAñosSoledad.jpg"
     },
     {
         "id": "2",
@@ -17,7 +17,7 @@
         "genero": "Fantasía",
         "precio": 19990,
         "stock": 2,
-        "portada": "../assets/portadas/señorAnillos.jpg"
+        "portada": "./assets/portadas/señorAnillos.jpg"
     },
     {
         "id": "3",
@@ -27,7 +27,7 @@
         "genero": "Distopía",
         "precio": 10990,
         "stock": 15,
-        "portada": "../assets/portadas/georgeOrwell1984.png"
+        "portada": "./assets/portadas/georgeOrwell1984.png"
     },
     {
         "id": "4",
@@ -37,7 +37,7 @@
         "genero": "Ciencia ficción",
         "precio": 9990,
         "stock": 10,
-        "portada": "../assets/portadas/fahrenheit451.jpg"
+        "portada": "./assets/portadas/fahrenheit451.jpg"
     },
     {
         "id": "5",
@@ -47,7 +47,7 @@
         "genero": "Fábula",
         "precio": 7999,
         "stock": 20,
-        "portada": "../assets/portadas/elPrincipito.jpg"
+        "portada": "./assets/portadas/elPrincipito.jpg"
     },
     {
         "id": "6",
@@ -57,7 +57,7 @@
         "genero": "Clásico",
         "precio": 13990,
         "stock": 7,
-        "portada": "../assets/portadas/crimenCastigo.jpg"
+        "portada": "./assets/portadas/crimenCastigo.jpg"
     },
     {
         "id": "7",
@@ -67,7 +67,7 @@
         "genero": "Ficción",
         "precio": 11990,
         "stock": 9,
-        "portada": "../assets/portadas/rayuelaJC.png"
+        "portada": "./assets/portadas/rayuelaJC.png"
     },
     {
         "id": "8",
@@ -77,7 +77,7 @@
         "genero": "Misterio",
         "precio": 12990,
         "stock": 11,
-        "portada": "../assets/portadas/laSombraViento.jpg"
+        "portada": "./assets/portadas/laSombraViento.jpg"
     },
     {
         "id": "9",
@@ -87,7 +87,7 @@
         "genero": "Fantasía",
         "precio": 15990,
         "stock": 6,
-        "portada": "../assets/portadas/nombreViento.jpg"
+        "portada": "./assets/portadas/nombreViento.jpg"
     },
     {
         "id": "10",
@@ -97,7 +97,7 @@
         "genero": "Thriller",
         "precio": 10990,
         "stock": 13,
-        "portada": "../assets/portadas/codigoDaVinci.jpg"
+        "portada": "./assets/portadas/codigoDaVinci.jpg"
     },
     {
         "id": "11",
@@ -107,7 +107,7 @@
         "genero": "Terror",
         "precio": 14990,
         "stock": 5,
-        "portada": "../assets/portadas/it.jpg"
+        "portada": "./assets/portadas/it.jpg"
     },
     {
         "id": "12",
@@ -117,7 +117,7 @@
         "genero": "Ensayo",
         "precio": 17990,
         "stock": 10,
-        "portada": "../assets/portadas/sapiens.jpg"
+        "portada": "./assets/portadas/sapiens.jpg"
     },
     {
         "id": "13",
@@ -127,7 +127,7 @@
         "genero": "Ficción",
         "precio": 8990,
         "stock": 18,
-        "portada": "../assets/portadas/elAlquimista.jpg"
+        "portada": "./assets/portadas/elAlquimista.jpg"
     },
     {
         "id": "14",
@@ -137,7 +137,7 @@
         "genero": "Filosófica",
         "precio": 11990,
         "stock": 9,
-        "portada": "../assets/portadas/laInsoportableLevedadDelSer.jpg"
+        "portada": "./assets/portadas/laInsoportableLevedadDelSer.jpg"
     },
     {
         "id": "15",
@@ -147,7 +147,7 @@
         "genero": "Realismo mágico",
         "precio": 34990,
         "stock": 14,
-        "portada": "../assets/portadas/harryPotterPiedraFilosofal.jpg"
+        "portada": "./assets/portadas/harryPotterPiedraFilosofal.jpg"
     },
     {
         "id": "16",
@@ -157,7 +157,7 @@
         "genero": "Romance",
         "precio": 9990,
         "stock": 16,
-        "portada": "../assets/portadas/orgulloPrejuicio.jpg"
+        "portada": "./assets/portadas/orgulloPrejuicio.jpg"
     },
     {
         "id": "17",
@@ -167,7 +167,7 @@
         "genero": "Clásico",
         "precio": 14990,
         "stock": 8,
-        "portada": "../assets/portadas/donQuijote.jpg"
+        "portada": "./assets/portadas/donQuijote.jpg"
     },
     {
         "id": "18",
@@ -177,7 +177,7 @@
         "genero": "Ciencia ficción",
         "precio": 13990,
         "stock": 12,
-        "portada": "../assets/portadas/juegosHambre.jpg"
+        "portada": "./assets/portadas/juegosHambre.jpg"
     },
     {
         "id": "19",
@@ -187,7 +187,7 @@
         "genero": "Histórica",
         "precio": 12990,
         "stock": 10,
-        "portada": "../assets/portadas/ladronaLibros.jpg"
+        "portada": "./assets/portadas/ladronaLibros.jpg"
     },
     {
         "id": "20",
@@ -197,6 +197,6 @@
         "genero": "Aventura",
         "precio": 11990,
         "stock": 2,
-        "portada": "../assets/portadas/mobyDick.jpg"
+        "portada": "./assets/portadas/mobyDick.jpg"
     }
 ]
