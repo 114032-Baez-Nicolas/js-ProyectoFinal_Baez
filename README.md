@@ -7,7 +7,9 @@ Simulador interactivo de ecommerce de libros: catálogo, filtros, carrito latera
 ## 🚀 Enlaces
 
 - **Deploy en Vercel**: [Ver proyecto con Vercel](https://biblioteca-duarte-quiros-baez.vercel.app/)
+- **GitHub Pages**: [Ver proyecto con Git Pages](https://114032-baez-nicolas.github.io/js-ProyectoFinal_Baez/)
 - **Video demostración**: [Vista Previa](https://www.youtube.com/watch?v=pRaasfjjFcA)
+
 
 ## 🛠️ Tecnologías
 
