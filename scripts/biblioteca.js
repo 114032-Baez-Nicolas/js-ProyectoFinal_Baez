@@ -4,7 +4,7 @@ let librosFiltrados = [];
 let carrito = [];
 let stockOriginal = {};
 
-// Constantes del negocio
+// Constantes de la bilbioteca
 const LIMITE_ENVIO_GRATIS = 50000;
 const COSTO_ENVIO = 2500;
 
@@ -82,7 +82,7 @@ async function cargarLibros() {
     }
     const data = await response.json();
 
-    // Convertir IDs a string por las dudas vinieran como números
+    // Convertir IDs a string por las dudas
     libros = data.map(libro => ({
       ...libro,
       id: String(libro.id)
@@ -419,6 +419,83 @@ function cerrarCarrito() {
   if (backdrop) backdrop.classList.remove("show");
 }
 
+// Proceso de checkout
+function procesarCheckout() {
+  if (carrito.length === 0) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Carrito vacío',
+      text: 'Agregá algunos libros antes de finalizar la compra'
+    });
+    return;
+  }
+
+  const subtotal = carrito.reduce((suma, item) => suma + (item.precio * item.cantidad), 0);
+  const envio = subtotal > LIMITE_ENVIO_GRATIS ? 0 : COSTO_ENVIO;
+  const total = subtotal + envio;
+
+  Swal.fire({
+    title: "Confirmar compra",
+    html: `
+            <div class="text-start">
+                <p><strong>Resumen de tu compra:</strong></p>
+                <p>Productos: ${carrito.length} items</p>
+                <p>Subtotal: $${formatearPrecio(subtotal)}</p>
+                <p>Envío: ${envio === 0 ? 'GRATIS' : '$' + formatearPrecio(envio)}</p>
+                <hr>
+                <p><strong>Total: $${formatearPrecio(total)}</strong></p>
+            </div>
+        `,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Confirmar compra",
+    cancelButtonText: "Seguir comprando"
+  }).then((resultado) => {
+    if (resultado.isConfirmed) {
+      completarCompra();
+    }
+  });
+}
+
+// Completar la compra
+function completarCompra() {
+  // Actualizar stock de libros
+  carrito.forEach(item => {
+    const libro = libros.find(l => l.id === item.id);
+    if (libro) {
+      libro.stock = Math.max(0, libro.stock - item.cantidad);
+    }
+  });
+
+  guardarStock();
+
+  // Generar número de pedido
+  const numeroPedido = Date.now().toString().slice(-6);
+
+  // Vaciar carrito
+  carrito = [];
+  guardarCarrito();
+  renderCarrito();
+  renderLibros();
+  cerrarCarrito();
+
+  // Mostrar confirmación
+  Swal.fire({
+    icon: 'success',
+    title: '¡Compra realizada!',
+    html: `
+            <div>
+                <p>Tu pedido <strong>#${numeroPedido}</strong> ha sido procesado.</p>
+                <p>Recibirás un email con los detalles.</p>
+                <p>¡Gracias por elegir Biblioteca Duarte Quirós!</p>
+            </div>
+        `,
+    confirmButtonText: 'Excelente'
+  });
+
+  mostrarToast("¡Compra realizada con éxito! 🎉");
+}
+
 // Función para resetear filtros (expuesta globalmente para el navbar)
 function resetearFiltros() {
   limpiarFiltros();
@@ -446,8 +523,9 @@ function configurarEventos() {
   document.querySelector("#btnCloseCart").addEventListener("click", cerrarCarrito);
   document.querySelector("#backdrop").addEventListener("click", cerrarCarrito);
   document.querySelector("#btnClearCart").addEventListener("click", vaciarCarrito);
+  document.querySelector("#btnCheckout").addEventListener("click", procesarCheckout);
 
-  // Cerrar carrito con la tecla Escape
+  // Cerrar carrito con Escape
   document.addEventListener("keydown", (evento) => {
     if (evento.key === "Escape") {
       cerrarCarrito();
@@ -455,6 +533,7 @@ function configurarEventos() {
   });
 }
 
+// Exponer función globalmente para el onclick del navbar
 window.resetearFiltros = resetearFiltros;
 
 // Inicialización de la aplicación
@@ -468,7 +547,10 @@ window.resetearFiltros = resetearFiltros;
     configurarEventos();
     renderCarrito();
   } catch (error) {
-    document.querySelector("#grid").innerHTML = 
-    `<div class="alert alert-danger">Error cargando libros. Por favor recargá la página.</div>`;
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al cargar la aplicación',
+      text: 'Hubo un problema cargando los datos. Por favor, recargá la página.'
+    });
   }
 })();
